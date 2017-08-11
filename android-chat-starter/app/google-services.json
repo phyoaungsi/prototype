@@ -1,0 +1,148 @@
+{
+  "project_info": {
+    "project_number": "1052499138149",
+    "firebase_url": "https://pasplatform.firebaseio.com",
+    "project_id": "pasplatform",
+    "storage_bucket": "pasplatform.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052499138149:android:725f260589266759",
+        "android_client_info": {
+          "package_name": "pas.com.mm.shoopingcart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052499138149-6bin35r36ofrcr0e9rvhfs3s42jmm0cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA44-0uSbxjmQ0Wwvw6ZrgqizoO1ZN1uEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052499138149:android:c118ec5358f7dea5",
+        "android_client_info": {
+          "package_name": "mm.com.quickdogfoundry.shopingcart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052499138149-6bin35r36ofrcr0e9rvhfs3s42jmm0cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA44-0uSbxjmQ0Wwvw6ZrgqizoO1ZN1uEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052499138149:android:87fcb66cc6ca320a",
+        "android_client_info": {
+          "package_name": "com.google.firebase.quickstart.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052499138149-6bin35r36ofrcr0e9rvhfs3s42jmm0cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA44-0uSbxjmQ0Wwvw6ZrgqizoO1ZN1uEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052499138149:android:a6cb4704a642265e",
+        "android_client_info": {
+          "package_name": "in.co.madhur.chatbubblesdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052499138149-9itkpsmcuoocega9c7mrhau36j5difh3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.madhur.chatbubblesdemo",
+            "certificate_hash": "fade4148145835958cdb8ec1a02852a22bfdf28d"
+          }
+        },
+        {
+          "client_id": "1052499138149-6bin35r36ofrcr0e9rvhfs3s42jmm0cg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA44-0uSbxjmQ0Wwvw6ZrgqizoO1ZN1uEc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052499138149-6bin35r36ofrcr0e9rvhfs3s42jmm0cg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
