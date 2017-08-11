@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     private int keyboardHeight;
     private boolean keyboardVisible;
     private WindowManager.LayoutParams windowLayoutParams;
-
+    DatabaseReference myRef = database.getReference("message");
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -206,7 +208,10 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         message.setUserType(userType);
         message.setMessageTime(new Date().getTime());
         chatMessages.add(message);
-
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("message", messageText);
+        map.put("user", UserDetails.username);
+        myRef.push().setValue(map);
         if(listAdapter!=null)
             listAdapter.notifyDataSetChanged();
 
