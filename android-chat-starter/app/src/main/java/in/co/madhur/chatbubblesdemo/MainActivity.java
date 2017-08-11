@@ -17,6 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.Executors;
@@ -114,6 +120,35 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map map = dataSnapshot.getValue(Map.class);
+                String message = map.get("message").toString();
+                String userName = map.get("user").toString();
+
+                if(userName.equals(UserDetails.username)){
+                    addMessageBox("You:-\n" + message, 1);
+                }
+                else{
+                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
+                }
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
         setContentView(R.layout.activity_main);
 
         AndroidUtilities.statusBarHeight = getStatusBarHeight();
