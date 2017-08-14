@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -197,6 +200,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
                     chatMessages.add(message1);
                     if (listAdapter != null) {
                         listAdapter.notifyDataSetChanged();
+                        chatListView.setSelection(listAdapter.getCount() - 1);
                     }
                 }
 
@@ -245,7 +249,40 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         chatMessages.add(message);
         Map<String, String> map = new HashMap<String, String>();
         map.put("message", messageText);
-        map.put("user", "MgMyoMins");
+
+        /**
+         *
+         *
+         * ***********************
+         * ****
+         * Whheeeee!
+         *
+         *
+         */
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+           // Uri photoUrl = user.getPhotoUrl();
+
+            // Check if user's email is verified
+          //  boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getToken() instead.
+            String uid = user.getUid();
+            map.put("user", name);
+        }
+        else{
+            Intent intent = new Intent(this.getBaseContext(), FacebookLoginActivity.class);
+            startActivity(intent);
+            map.put("user", "Rouge");
+        }
+
+
+
         myRef.push().setValue(map);
         if(listAdapter!=null)
             listAdapter.notifyDataSetChanged();
