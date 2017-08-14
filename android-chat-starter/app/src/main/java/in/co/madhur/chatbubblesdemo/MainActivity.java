@@ -1,5 +1,5 @@
 package in.co.madhur.chatbubblesdemo;
-
+import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
@@ -13,14 +13,16 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import in.co.madhur.chatbubblesdemo.auth.FacebookLoginActivity;
 import in.co.madhur.chatbubblesdemo.model.ChatMessage;
 import in.co.madhur.chatbubblesdemo.model.Status;
 import in.co.madhur.chatbubblesdemo.model.UserType;
@@ -41,6 +44,7 @@ import in.co.madhur.chatbubblesdemo.widgets.SizeNotifierRelativeLayout;
 
 public class MainActivity extends ActionBarActivity implements SizeNotifierRelativeLayout.SizeNotifierRelativeLayoutDelegate, NotificationCenter.NotificationCenterDelegate {
 
+    private String TAG="mainActifity";
     private ListView chatListView;
     private EditText chatEditText1;
     private ArrayList<ChatMessage> chatMessages;
@@ -52,7 +56,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     private int keyboardHeight;
     private boolean keyboardVisible;
     private WindowManager.LayoutParams windowLayoutParams;
-    DatabaseReference myRef = database.getReference("message");
+    private  DatabaseReference myRef ;
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -123,33 +127,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        myRef = database.getReference("chats");
 
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Map map = dataSnapshot.getValue(Map.class);
-                String message = map.get("message").toString();
-                String userName = map.get("user").toString();
-
-                if(userName.equals(UserDetails.username)){
-                    addMessageBox("You:-\n" + message, 1);
-                }
-                else{
-                    addMessageBox(UserDetails.chatWith + ":-\n" + message, 2);
-                }
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
 
         setContentView(R.layout.activity_main);
 
@@ -195,6 +174,62 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         sizeNotifierRelativeLayout.delegate = this;
 
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.emojiDidLoaded);
+
+
+
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                GenericTypeIndicator<Map<String,String>> t = new GenericTypeIndicator<Map<String,String>>() {};
+
+                Map<String,String> map = (Map<String,String>)dataSnapshot.getValue(t);
+
+                if(map!=null) {
+                    String message = map.get("message").toString();
+                    String userName = map.get("user").toString();
+                    ChatMessage message1 = new ChatMessage();
+                    message1.setMessageStatus(Status.DELIVERED);
+                    message1.setMessageText(message);
+                    message1.setMessageTime(new Date().getTime());
+                    message1.setUserType(UserType.SELF);
+
+                    chatMessages.add(message1);
+                    if (listAdapter != null) {
+                        listAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                Button login=(Button) findViewById(R.id.btn_fb);
+                login.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(view.getContext(), FacebookLoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+
+            public void onCancelled(DatabaseError firebaseError) {
+
+            }
+        });
     }
 
     private void sendMessage(final String messageText, final UserType userType)
@@ -210,7 +245,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         chatMessages.add(message);
         Map<String, String> map = new HashMap<String, String>();
         map.put("message", messageText);
-        map.put("user", UserDetails.username);
+        map.put("user", "MgMyoMins");
         myRef.push().setValue(map);
         if(listAdapter!=null)
             listAdapter.notifyDataSetChanged();

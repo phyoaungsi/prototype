@@ -8,6 +8,12 @@
     tools:context=".MainActivity">
 
 
+    <Button
+        android:id="@+id/btn_fb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
     <ListView
         android:id="@+id/chat_list_view"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -15,8 +21,10 @@
         android:divider="@drawable/chat_divider"
         android:layout_width="match_parent"
         android:scrollbarStyle="outsideOverlay"
-        android:layout_above="@+id/bottomlayout"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></ListView>
 
     <LinearLayout
         android:id="@+id/bottomlayout"
