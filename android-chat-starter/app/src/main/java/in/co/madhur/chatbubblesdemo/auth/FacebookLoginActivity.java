@@ -1,6 +1,7 @@
 package in.co.madhur.chatbubblesdemo.auth;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import in.co.madhur.chatbubblesdemo.MainActivity;
 import in.co.madhur.chatbubblesdemo.R;
 
 public class FacebookLoginActivity extends AppCompatActivity   implements
@@ -41,6 +43,7 @@ public class FacebookLoginActivity extends AppCompatActivity   implements
 
         // [START declare_auth]
         private FirebaseAuth mAuth;
+        private Context mContext;
         // [END declare_auth]
 
         private CallbackManager mCallbackManager;
@@ -50,7 +53,7 @@ public class FacebookLoginActivity extends AppCompatActivity   implements
             super.onCreate(savedInstanceState);
             FacebookSdk.sdkInitialize(getApplicationContext());
             setContentView(R.layout.activity_facebook_login);
-
+            mContext=this.getBaseContext();
             // Views
             mStatusTextView = (TextView) findViewById(R.id.status);
             mDetailTextView = (TextView) findViewById(R.id.detail);
@@ -118,9 +121,9 @@ public class FacebookLoginActivity extends AppCompatActivity   implements
         // [START_EXCLUDE silent]
         showProgressDialog();
         // [END_EXCLUDE]
-
+        OnCompleteListener C;
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
+           mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -129,6 +132,8 @@ public class FacebookLoginActivity extends AppCompatActivity   implements
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -141,6 +146,8 @@ public class FacebookLoginActivity extends AppCompatActivity   implements
                         hideProgressDialog();
                         // [END_EXCLUDE]
                     }
+
+
                 });
     }
     // [END auth_with_facebook]

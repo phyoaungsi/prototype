@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +49,7 @@ import in.co.madhur.chatbubblesdemo.widgets.SizeNotifierRelativeLayout;
 public class MainActivity extends ActionBarActivity implements SizeNotifierRelativeLayout.SizeNotifierRelativeLayoutDelegate, NotificationCenter.NotificationCenterDelegate {
 
     private String TAG="mainActifity";
+    private String seller="SELLER";
     private ListView chatListView;
     private EditText chatEditText1;
     private ArrayList<ChatMessage> chatMessages;
@@ -60,7 +62,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     private boolean keyboardVisible;
     private WindowManager.LayoutParams windowLayoutParams;
     private  DatabaseReference myRef ;
-
+    private  DatabaseReference yourRef ;
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -130,8 +132,11 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("chats");
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId= user.getUid();
+        String channel= UUID.randomUUID().toString();
+        myRef = database.getReference("chats/"+channel+"/"+userId);
+        yourRef=database.getReference("chats/"+channel+"/"+seller);
 
         setContentView(R.layout.activity_main);
 
@@ -212,6 +217,9 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
                         startActivity(intent);
                     }
                 });
+
+
+
             }
 
             @Override
@@ -281,7 +289,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             map.put("user", "Rouge");
         }
 
-
+        yourRef.push().setValue(map);
 
         myRef.push().setValue(map);
         if(listAdapter!=null)
