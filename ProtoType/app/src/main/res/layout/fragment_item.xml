@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sidebar.quickdog.mm.com.pas.prototype.item.ItemFragment">
+
+    <LinearLayout
+        android:layout_width="343dp"
+        android:layout_height="300dp"
+
+        android:orientation="horizontal"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="242dp"
+            android:layout_height="283dp"
+
+            android:src="@drawable/images_starwar"
+            tools:layout_editor_absoluteX="79dp"
+            tools:layout_editor_absoluteY="60dp" />
+
+        <ImageButton
+            android:id="@+id/playButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_play" />
+    </LinearLayout>
+
+</FrameLayout>
