@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import sidebar.quickdog.mm.com.pas.prototype.R;
@@ -51,41 +52,47 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
 
-        TextView tv=(TextView)holder.mTextView.findViewById(R.id.info_text);
+        TextView tv = (TextView) holder.mTextView.findViewById(R.id.info_text);
+
         tv.setText(mDataset[position]);
+        ImageView iv = (ImageView) holder.mTextView.findViewById(R.id.imgProduct);
+        int[] imageSet = {R.drawable.star_war, R.drawable.image2};
+        iv.setImageResource(imageSet[position]);
+
 
         final ImageButton b1 = (ImageButton) holder.mTextView.findViewById(R.id.btnPlayer);
-        int[] audioSet={R.raw.blues,R.raw.music};
-        final int audioFile=audioSet[position];
-        View.OnClickListener clickListener=new View.OnClickListener() {
+        int[] audioSet = {R.raw.blues, R.raw.music};
+        final int audioFile = audioSet[position];
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int icon;
-                if(AudioPlayer.getInstance().isPlaying()) {
-                    if(AudioPlayer.currentRes==audioFile) {
-                        AudioPlayer.getInstance().pause();
-                        icon = android.R.drawable.ic_media_play;
-                    }
-                    else
-                    {
-                        AudioPlayer.initMediaPlayer(audioFile,mContext);
-                        icon=android.R.drawable.ic_media_pause;
-                    }
-                }
-                else{
 
-                    AudioPlayer.initMediaPlayer(audioFile,mContext);
-                    icon=android.R.drawable.ic_media_pause;
+                    AudioPlayer.initMediaPlayer(audioFile, mContext);
 
-                }
 
-                b1.setImageDrawable(
-                        ContextCompat.getDrawable(mContext, icon));
+
+
             }
         };
         b1.setOnClickListener(clickListener);
-    }
 
+
+        ImageButton b2 = (ImageButton) holder.mTextView.findViewById(R.id.btnPause);
+
+
+        View.OnClickListener clickListener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int icon;
+                if (AudioPlayer.getInstance().isPlaying()) {
+                    if (AudioPlayer.currentRes == audioFile) {
+                        AudioPlayer.getInstance().pause();
+                    }
+                }
+            }
+        };
+        b2.setOnClickListener(clickListener2);
+    }
 
     @Override
     public int getItemCount() {

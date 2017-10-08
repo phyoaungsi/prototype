@@ -1,38 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
     android:weightSum="1">
 
 
     <!-- A CardView that contains a TextView -->
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_width="305dp"
-        android:layout_height="200dp"
-        card_view:cardCornerRadius="4dp"
-        android:layout_weight="0.38">
+        android:layout_width="415dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|center"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="4dp">
 
-        <ImageView
-            android:id="@+id/imgProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/images_starwar" />
-
-        <ImageButton
-            android:id="@+id/btnPlayer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_media_play" />
+        <TextView
+            android:id="@+id/text_header"
+            android:layout_width="223dp"
+            android:layout_height="80dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_horizontal"
+            android:text="[Product Title]"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/info_text"
+            android:layout_width="166dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="40dp"
+            android:text="DDD"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="354dp"
+            android:layout_height="276dp"
+            android:layout_gravity="top"
+            android:layout_marginTop="45dp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="124dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="30dp"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnPlayer"
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+            <ImageButton
+                android:id="@+id/btnPause"
+                android:layout_width="79dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:srcCompat="@android:drawable/ic_media_pause" />
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 

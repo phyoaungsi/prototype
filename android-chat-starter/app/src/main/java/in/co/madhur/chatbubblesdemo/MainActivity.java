@@ -135,8 +135,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String userId= user.getUid();
         String channel= UUID.randomUUID().toString();
-        myRef = database.getReference("chats/"+channel+"/"+userId);
-        yourRef=database.getReference("chats/"+channel+"/"+seller);
+        myRef = database.getReference("chats/"+userId+"/"+channel);
+        yourRef=database.getReference("chats/"+userId+"/"+channel);
 
         setContentView(R.layout.activity_main);
 
